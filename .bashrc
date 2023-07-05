@@ -10,18 +10,6 @@ if [ -f .gitcompletion.bash ]; then
   source .gitcompletion.bash
 fi
 
-if [ -f .kubecompletion.bash ]; then
-  source .kubecompletion.bash
-fi
-
-if [ -f /usr/local/bin/aws_completer ]; then
-  complete -C '/usr/local/bin/aws_completer' aws
-fi
-
-if [ -f /usr/bin/kubectl ]; then
-  kubectl completion bash | bash
-fi
-
 # Node.js version manager
 if [ -d .nvm ]; then
   export NVM_DIR="$HOME/.nvm"

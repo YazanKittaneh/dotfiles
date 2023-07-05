@@ -11,7 +11,7 @@ if ! [ -x "$(command -v git)" ]; then
   fi
 fi
 
-git clone https://github.com/branneman/dotfiles.git ~/dotfiles
+git clone https://github.com/yazankittaneh/dotfiles.git ~/dotfiles
 
 symlink() {
   if [ -e ~/$1 ]; then
@@ -33,12 +33,8 @@ symlink .emacs
 symlink .gitconfig
 symlink .gitignore
 symlink .gitcompletion.bash
-symlink .kubecompletion.bash
 symlink .curlrc
 symlink .nvmrc
-symlink .hyper.js
-symlink .tmux.conf
-symlink .XCompose
 
 echo "Enter Git fullname:"
 read GIT_FULLNAME
