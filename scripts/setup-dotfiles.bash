@@ -39,7 +39,7 @@ symlink .nvmrc
 echo "Enter Git fullname:"
 read GIT_FULLNAME
 echo "Requesting root permissions to set git config at system level..."
-sudo git config --system user.name $FULLNAME
+sudo git conxfig --system user.name $FULLNAME
 echo "Success."
 
 echo "Enter Git email address:"
