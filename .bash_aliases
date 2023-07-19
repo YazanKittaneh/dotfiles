@@ -20,7 +20,8 @@ alias tree='tree -I ".git|node_modules"'
 
 alias path='echo -e ${PATH//:/\\n}'
 
-alias k='kubectl'
+alias o='open .'
+alias c='code .'
 alias ks='echo -e "context: $(k config current-context)\nnamespace: $(k config view --minify --output jsonpath={..namespace})"'
 alias kc='f (){ export KUBECONFIG=~/.kube/"$@".yaml; unset -f f; }; f'
 alias kns='f(){ k config set-context --current --namespace="$@"; unset -f f; }; f'
