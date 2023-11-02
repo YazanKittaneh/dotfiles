@@ -20,6 +20,8 @@ alias tree='tree -I ".git|node_modules"'
 
 alias path='echo -e ${PATH//:/\\n}'
 
+alias python='/opt/homebrew/bin/python3'
+
 alias o='open .'
 alias c='code .'
 alias ks='echo -e "context: $(k config current-context)\nnamespace: $(k config view --minify --output jsonpath={..namespace})"'

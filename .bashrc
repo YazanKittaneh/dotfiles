@@ -27,3 +27,6 @@ if [ -d "$HOME/.jabba" ]; then
   source "$HOME/.jabba/jabba.sh"
   jabba use openjdk@1.14.0
 fi
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
