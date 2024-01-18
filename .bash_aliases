@@ -5,11 +5,11 @@ else
 fi
 alias ll="l -a"
 
-alias cd1="cd .."
-alias cd2="cd ../../"
-alias cd3="cd ../../../"
-alias cd4="cd ../../../../"
-alias cd5="cd ../../../../../"
+alias c1="cd .."
+alias c2="cd ../../"
+alias c3="cd ../../../"
+alias c4="cd ../../../../"
+alias c5="cd ../../../../../"
 
 if [[ $OSTYPE != 'darwin'* ]]; then
   alias open="xdg-open"
@@ -22,6 +22,7 @@ alias path='echo -e ${PATH//:/\\n}'
 
 alias python='/opt/homebrew/bin/python3'
 
+alias mini='ssh yazankittaneh@108.232.85.228'
 alias o='open .'
 alias c='code .'
 alias ks='echo -e "context: $(k config current-context)\nnamespace: $(k config view --minify --output jsonpath={..namespace})"'
