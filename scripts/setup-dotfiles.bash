@@ -4,6 +4,7 @@ if ! [ -x "$(command -v git)" ]; then
   if [ -x "$(command -v apt-get)" ]; then
     apt-get update
     apt-get install git -y
+    apt-get install tmux -y
   fi
   if ! [ -x "$(command -v git)" ]; then
     printf "\nThis script requires git!\n"
@@ -39,7 +40,7 @@ symlink .nvmrc
 echo "Enter Git fullname:"
 read GIT_FULLNAME
 echo "Requesting root permissions to set git config at system level..."
-sudo git conxfig --system user.name $FULLNAME
+sudo git config --system user.name $FULLNAME
 echo "Success."
 
 echo "Enter Git email address:"
