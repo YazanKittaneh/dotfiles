@@ -71,6 +71,31 @@ prompt_node() {
   fi;
 }
 
+function start_yazan.io() {
+    # Check if the session already exists
+    if tmux has-session -t my_session 2>/dev/null; then
+        echo "Session 'my_session' already exists. Attaching to it."
+        tmux attach-session -t my_session
+    else
+        echo "Creating new session 'my_session'."
+        tmux new-session -d -s my_session
+        tmux split-window -h
+        tmux split-window -v
+        tmux select-pane -t 0
+        tmux send-keys 'cd /Users/yazankittaneh/yaz/v4.yazan.io/nuxt-shadcn-dashboard/' C-m
+        tmux send-keys 'nvm use ' C-m
+        tmux send-keys 'pnpm run dev --trace' C-m
+        tmux select-pane -t 1
+        tmux send-keys 'cd /Users/yazankittaneh/yaz/v4.yazan.io/nuxt-shadcn-dashboard/' C-m
+        tmux select-pane -t 2
+        tmux send-keys 'cd /Users/yazankittaneh/yaz/v4.yazan.io/nuxt-shadcn-dashboard/' C-m
+        tmux send-keys '/opt/homebrew/opt/python@3.11/bin/python3.11 -m pip install --upgrade aider-chat' C-m
+        tmux send-keys 'aider --opus --dark-mode' C-m
+        tmux attach-session -t my_session
+    fi
+}
+
+
 if tput setaf 1 &> /dev/null; then
   tput sgr0; # reset colors
   bold=$(tput bold);
