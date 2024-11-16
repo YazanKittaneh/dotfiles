@@ -10,6 +10,10 @@ if [ -f .gitcompletion.bash ]; then
   source .gitcompletion.bash
 fi
 
+if [ -f .tmux.conf ]; then
+  tmux source ~/dotfiles/.tmux.conf
+fi
+
 # Node.js version manager
 if [ -d .nvm ]; then
   export NVM_DIR="$HOME/.nvm"
