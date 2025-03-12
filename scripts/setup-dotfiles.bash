@@ -12,6 +12,11 @@ if ! [ -x "$(command -v git)" ]; then
   fi
 fi
 
+apt-get update
+apt-get install git -y
+apt-get install tmux -y
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 git clone https://github.com/yazankittaneh/dotfiles.git ~/dotfiles
 
 symlink() {
@@ -40,6 +45,7 @@ symlink .gitignore
 symlink .gitcompletion.bash
 symlink .curlrc
 symlink .nvmrc
+symlink .tmux.conf
 
 echo "Enter Git fullname:"
 read GIT_FULLNAME
