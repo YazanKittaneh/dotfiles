@@ -1,3 +1,8 @@
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+fi
+
+
 if [ -f .bash_aliases ]; then
   source .bash_aliases
 fi
@@ -34,3 +39,6 @@ fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"

@@ -30,6 +30,10 @@ symlink .bash_aliases
 symlink .bash_prompt
 symlink .inputrc
 
+symlink .zprofile
+symlink .zshrc
+symlink .zshenv
+
 symlink .emacs
 symlink .gitconfig
 symlink .gitignore
