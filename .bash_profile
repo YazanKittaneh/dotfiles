@@ -19,3 +19,7 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.bash 2>/dev/null || :

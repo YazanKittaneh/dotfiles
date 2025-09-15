@@ -3,24 +3,24 @@ if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
 fi
 
 
-if [ -f .bash_aliases ]; then
-  source .bash_aliases
+if [ -f ~/dotfiles/.bash_aliases ]; then
+  source ~/dotfiles/.bash_aliases
 fi
 
-if [ -f .bash_prompt ]; then
-  source .bash_prompt
+if [ -f ~/dotfiles/.bash_prompt ]; then
+  source ~/dotfiles/.bash_prompt
 fi
 
-if [ -f .gitcompletion.bash ]; then
-  source .gitcompletion.bash
+if [ -f ~/dotfiles/.gitcompletion.bash ]; then
+  source ~/dotfiles/.gitcompletion.bash
 fi
 
-if [ -f .tmux.conf ]; then
+if [ -f ~/dotfiles/.tmux.conf ]; then
   tmux source ~/dotfiles/.tmux.conf
 fi
 
 # Node.js version manager
-if [ -d .nvm ]; then
+if [ -d ~/.nvm ]; then
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -42,3 +42,7 @@ export PATH=$BUN_INSTALL/bin:$PATH
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"
+
+alias claude="/Users/yazankittaneh/.claude/local/claude"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"

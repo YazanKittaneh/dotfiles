@@ -47,6 +47,17 @@ symlink .curlrc
 symlink .nvmrc
 symlink .tmux.conf
 
+# Create .claude directory structure and symlink agents folder
+echo "Setting up Claude agents directory..."
+mkdir -p ~/.claude
+mkdir -p ~/dotfiles/.claude/agents
+if [ -e ~/.claude/agents ]; then
+  echo "Found existing Claude agents directory, creating backup: ~/.claude/agents.bak"
+  mv ~/.claude/agents ~/.claude/agents.bak
+fi
+ln -sf ~/dotfiles/.claude/agents ~/.claude/agents
+echo "Claude agents directory setup complete."
+
 echo "Enter Git fullname:"
 read GIT_FULLNAME
 echo "Requesting root permissions to set git config at system level..."

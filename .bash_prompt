@@ -95,6 +95,48 @@ function start_yazan.io() {
     fi
 }
 
+function start_soto() {
+    # Define the session name
+    local SESSION_NAME="soto_session"
+    local SOTO_DIR="/Users/yazankittaneh/code/Brian/soto_llc"
+
+    # Check if the session already exists
+    if tmux has-session -t $SESSION_NAME 2>/dev/null; then
+        echo "Session '$SESSION_NAME' already exists. Attaching to it."
+        tmux attach-session -t $SESSION_NAME
+    else
+        echo "Creating new session '$SESSION_NAME'."
+
+        # Start a new detached session
+        tmux new-session -d -s $SESSION_NAME -c $SOTO_DIR
+
+        # Split the window into three panes
+        tmux split-window -h -t $SESSION_NAME -c $SOTO_DIR
+        tmux split-window -v -t $SESSION_NAME -c $SOTO_DIR
+
+        # Select the first pane and set it up
+        tmux select-pane -t 0
+        tmux send-keys "cd ${SOTO_DIR}" C-m
+        tmux send-keys "cursor" C-m
+
+        # Select the second pane and set it up
+        tmux select-pane -t 1
+        tmux send-keys "cd ${SOTO_DIR}" C-m
+        tmux send-keys "cursor" C-m
+
+        # Select the third pane and set it up
+        tmux select-pane -t 2
+        tmux send-keys "cd ${SOTO_DIR}" C-m
+        tmux send-keys "cursor" C-m
+
+        # Move the tmux session to the second monitor using Rectangle
+        osascript -e 'tell application "Rectangle" to move right half'
+
+        # Attach to the session
+        tmux attach-session -t $SESSION_NAME
+    fi
+}
+
 
 if tput setaf 1 &> /dev/null; then
   tput sgr0; # reset colors

@@ -33,9 +33,5 @@ if [ -f .env ]; then
   source .env
 fi
 
-if [ -e "${HOME}/.iterm2_shell_integration.bash" ]; then
-  source "${HOME}/.iterm2_shell_integration.bash"
-fi
-
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"
