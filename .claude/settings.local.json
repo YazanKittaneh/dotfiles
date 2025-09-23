@@ -1,9 +1,22 @@
 {
   "permissions": {
     "allow": [
-      "Bash(source:*)"
+      "Bash(docker compose:*)",
+      "Bash(npx drizzle-kit:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm add:*)",
+      "Bash(timeout 40 pnpm build)",
+      "Bash(timeout 60 pnpm build)",
+      "Bash(curl:*)",
+      "Bash(timeout 30 pnpm build)",
+      "Bash(sed:*)"
     ],
     "deny": [],
-    "ask": []
+    "defaultMode": "acceptEdits"
   }
 }
