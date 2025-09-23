@@ -1,44 +1,38 @@
+# Ghostty shell integration
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
 fi
 
-
-if [ -f .bash_aliases ]; then
-  source .bash_aliases
+# Source bash aliases
+if [ -f ~/.bash_aliases ]; then
+  source ~/.bash_aliases
 fi
 
-if [ -f .bash_prompt ]; then
-  source .bash_prompt
+# Source bash prompt customization
+if [ -f ~/.bash_prompt ]; then
+  source ~/.bash_prompt
 fi
 
-if [ -f .gitcompletion.bash ]; then
-  source .gitcompletion.bash
+# Git completion for bash
+if [ -f ~/.gitcompletion.bash ]; then
+  source ~/.gitcompletion.bash
 fi
 
-if [ -f .tmux.conf ]; then
-  tmux source ~/dotfiles/.tmux.conf
+# Tmux configuration
+if [ -f ~/.tmux.conf ]; then
+  tmux source ~/dotfiles/.tmux.conf 2>/dev/null
 fi
 
-# Node.js version manager
-if [ -d .nvm ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# NVM - use specific version if .nvmrc exists
+if [ -d "$HOME/.nvm" ]; then
   if [ -f .nvmrc ]; then
-    nvm use
+    nvm use 2>/dev/null || nvm use default
   else
-    nvm use default
+    nvm use default 2>/dev/null
   fi
 fi
 
-# Java version manager
+# Java - use specific version
 if [ -d "$HOME/.jabba" ]; then
-  source "$HOME/.jabba/jabba.sh"
-  jabba use openjdk@1.14.0
+  jabba use openjdk@1.14.0 2>/dev/null
 fi
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH=$BUN_INSTALL/bin:$PATH
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"
