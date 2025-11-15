@@ -81,17 +81,7 @@ fi
 # Load environment variables if not already loaded
 if [ -f "$HOME/.env" ]; then
   source "$HOME/.env"
-fi
-# bun completions
-[ -s "/Users/ykittaneh/.bun/_bun" ] && source "/Users/ykittaneh/.bun/_bun"
+fi 
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
-
-alias cu="cursor"
-
-alias cu="cursor ."
+alias cc='claude converse --dangerously-skip-permissions'
+alias ccy='claude converse --dangerously-skip-permissions'
