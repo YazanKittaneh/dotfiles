@@ -36,3 +36,6 @@ fi
 if [ -d "$HOME/.jabba" ]; then
   jabba use openjdk@1.14.0 2>/dev/null
 fi
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
+

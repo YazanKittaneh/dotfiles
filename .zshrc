@@ -4,6 +4,8 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
+# Remove unwanted Oh My Zsh aliases
+unalias gk
 
 # Aliases (zsh-compatible)
 if [[ $OSTYPE == 'darwin'* ]]; then
@@ -49,6 +51,8 @@ alias addy='pipx run aider-chat --sonnet'
 alias o='open .'
 alias c='codium .'
 alias cu='cursor .'
+alias cy='claude --dangerously-skip-permissions'
+
 
 # Kubernetes aliases
 alias ks='echo -e "context: $(kubectl config current-context)\nnamespace: $(kubectl config view --minify --output jsonpath={..namespace})"'
@@ -78,3 +82,16 @@ fi
 if [ -f "$HOME/.env" ]; then
   source "$HOME/.env"
 fi
+# bun completions
+[ -s "/Users/ykittaneh/.bun/_bun" ] && source "/Users/ykittaneh/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+alias cu="cursor"
+
+alias cu="cursor ."

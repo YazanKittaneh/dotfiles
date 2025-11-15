@@ -56,3 +56,5 @@
 [user]
 	name = Yazan Kittaneh
 	email = ykittaneh@paychex.com
+[credential]
+	helper = store
