@@ -37,15 +37,41 @@ The configurations include setup for:
 - LM Studio CLI
 - Cargo/Rust
 
-## Git Configuration
+## Git and GitHub Workflow
 
-`.gitconfig` includes custom aliases for common operations:
+### GitHub CLI (gh) - PRIMARY TOOL
+
+**IMPORTANT**: Always use GitHub CLI (`gh`) for ALL GitHub-related operations. This includes:
+
+- **Pull Requests**: Use `gh pr` commands for creating, listing, viewing, checking out, reviewing, and merging PRs
+- **Issues**: Use `gh issue` commands for creating, listing, viewing, and managing issues
+- **Repository operations**: Use `gh repo` commands for cloning, forking, viewing repo info
+- **Status checks**: Use `gh pr checks`, `gh pr status` for CI/CD and PR status
+- **Reviews**: Use `gh pr review` for adding reviews and comments
+- **Releases**: Use `gh release` commands for managing releases
+- **Workflows**: Use `gh workflow` and `gh run` for GitHub Actions
+
+Example common operations:
+- `gh pr create` - Create a new pull request
+- `gh pr list` - List pull requests
+- `gh pr status` - Show status of relevant PRs
+- `gh pr view <number>` - View PR details
+- `gh pr checkout <number>` - Check out a PR locally
+- `gh pr review <number>` - Review a PR
+- `gh issue create` - Create a new issue
+- `gh repo view` - View repository details
+
+### Git Configuration
+
+`.gitconfig` includes custom aliases for local git operations:
 - `co` - checkout
 - `s` - status
 - `l` - colored graph log
 - `u` - fetch, pull with rebase, and purge merged branches
 - `squash` - squash commits
 - `purge` - remove merged branches
+
+**Note**: Use these git aliases for local repository operations, but always prefer `gh` CLI for any GitHub-specific operations.
 
 ## Scripts Directory
 

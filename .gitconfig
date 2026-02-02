@@ -56,5 +56,10 @@
 [user]
 	name = Yazan Kittaneh
 	email = ykittaneh@paychex.com
+	signingkey = C27B77713EC42D9B
 [credential]
 	helper = store
+[commit]
+	gpgsign = true
+[gpg]
+	program = /opt/homebrew/bin/gpg

@@ -22,6 +22,20 @@ if [[ $OSTYPE != 'darwin'* ]]; then
 fi
 start() { nohup $1 &> /dev/null & disown; }
 
+killport() {
+  if [ -z "$1" ]; then
+    echo "Usage: killport <port>"
+    return 1
+  fi
+  local pids=$(lsof -ti:$1)
+  if [ -z "$pids" ]; then
+    echo "No process found on port $1"
+    return 1
+  fi
+  echo "$pids" | xargs kill -9 && echo "Killed process(es) on port $1: $pids"
+}
+alias kp='killport'
+
 alias tree='tree -I ".git|node_modules"'
 
 alias path='echo -e ${PATH//:/\\n}'
@@ -44,3 +58,4 @@ alias kc='f (){ export KUBECONFIG=~/.kube/"$@".yaml; unset -f f; }; f'
 alias kns='f(){ k config set-context --current --namespace="$@"; unset -f f; }; f'
 alias cy='claude --dangerously-skip-permissions'
 alias ccy='claude converse --dangerously-skip-permissions'
+alias vy='vt cy'

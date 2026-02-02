@@ -31,6 +31,21 @@ fi
 # Start function for background processes
 start() { nohup $1 &> /dev/null & disown; }
 
+# Kill process on specific port
+killport() {
+  if [ -z "$1" ]; then
+    echo "Usage: killport <port>"
+    return 1
+  fi
+  local pids=$(lsof -ti:$1)
+  if [ -z "$pids" ]; then
+    echo "No process found on port $1"
+    return 1
+  fi
+  echo "$pids" | xargs kill -9 && echo "Killed process(es) on port $1: $pids"
+}
+alias kp='killport'
+
 # Common aliases
 alias tree='tree -I ".git|node_modules"'
 alias path='echo -e ${PATH//:/\\n}'
@@ -78,6 +93,14 @@ if [ -d "$HOME/.jabba" ]; then
   jabba use openjdk@1.14.0 2>/dev/null
 fi
 
+# Python environment management (pyenv)
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PIPENV_VENV_IN_PROJECT="1"
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+
 # Load environment variables if not already loaded
 if [ -f "$HOME/.env" ]; then
   source "$HOME/.env"
@@ -85,3 +108,22 @@ fi
 
 alias cc='claude converse --dangerously-skip-permissions'
 alias ccy='claude converse --dangerously-skip-permissions'
+alias vy='vt cy'
+
+# Claude Code - Bitbucket Integration (added 2025-12-09)
+# Note: Set BITBUCKET_APP_PASSWORD in ~/.env to avoid exposing secrets
+export BITBUCKET_USERNAME="ykittaneh@paychex.com"
+if [ -n "$BITBUCKET_APP_PASSWORD" ]; then
+  export BITBUCKET_APP_PASSWORD="$BITBUCKET_APP_PASSWORD"
+fi
+export BITBUCKET_WORKSPACE="surepayroll"
+
+# GPG configuration
+export GPG_TTY=$(tty)
+
+alias claude-mem='bun "/Users/ykittaneh/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+
+# opencode
+export PATH=/Users/ykittaneh/.opencode/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
