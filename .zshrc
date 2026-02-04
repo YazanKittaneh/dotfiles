@@ -1,11 +1,12 @@
+# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration.zsh"
+fi
 # Oh My Zsh configuration
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
-
-# Remove unwanted Oh My Zsh aliases
-unalias gk
 
 # Aliases (zsh-compatible)
 if [[ $OSTYPE == 'darwin'* ]]; then
@@ -108,6 +109,7 @@ fi
 
 alias cc='claude converse --dangerously-skip-permissions'
 alias ccy='claude converse --dangerously-skip-permissions'
+<<<<<<< HEAD
 alias vy='vt cy'
 
 # Claude Code - Bitbucket Integration (added 2025-12-09)
@@ -125,5 +127,4 @@ alias claude-mem='bun "/Users/ykittaneh/.claude/plugins/marketplaces/thedotmack/
 
 # opencode
 export PATH=/Users/ykittaneh/.opencode/bin:$PATH
-export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
