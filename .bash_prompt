@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+# Pretty bash prompt with git, node, and path info
+# Designed for truecolor terminals (Ghostty, iTerm2, etc.)
+
+# ── Colors (truecolor) ──────────────────────────────────────────────
+_c_reset='\[\e[0m\]'
+_c_bold='\[\e[1m\]'
+_c_dim='\[\e[2m\]'
+
+# Palette
+_c_blue='\[\e[38;2;130;170;255m\]'       # soft blue - directory
+_c_green='\[\e[38;2;166;218;149m\]'       # mint green - clean git
+_c_yellow='\[\e[38;2;238;212;159m\]'      # warm yellow - dirty git
+_c_red='\[\e[38;2;237;135;150m\]'         # soft red - diverged/detached
+_c_magenta='\[\e[38;2;198;160;246m\]'     # lavender - node version
+_c_cyan='\[\e[38;2;139;213;202m\]'        # teal - user/host
+_c_gray='\[\e[38;2;110;115;141m\]'        # muted gray - separators
+_c_orange='\[\e[38;2;245;169;127m\]'      # peach - k8s context
+_c_white='\[\e[38;2;202;211;245m\]'       # soft white - prompt char
+
+# ── Git prompt (via git-prompt.sh) ──────────────────────────────────
+if [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
+  source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+elif [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh ]; then
+  source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+fi
+
+# Enable git prompt features
+export GIT_PS1_SHOWDIRTYSTATE=1        # * for unstaged, + for staged
+export GIT_PS1_SHOWSTASHSTATE=1        # $ if stashes exist
+export GIT_PS1_SHOWUNTRACKEDFILES=1    # % if untracked files
+export GIT_PS1_SHOWUPSTREAM="auto"     # <, >, <> for behind, ahead, diverged
+
+# ── Helper functions ────────────────────────────────────────────────
+
+__prompt_git() {
+  local git_info
+  git_info="$(__git_ps1 '%s' 2>/dev/null)"
+  [ -z "$git_info" ] && return
+
+  local branch="${git_info}"
+  local color=""
+  local symbols=""
+
+  # Determine state for coloring
+  if [[ "$git_info" == *"<>"* ]]; then
+    color="\e[38;2;237;135;150m"  # red - diverged
+  elif [[ "$git_info" == *"*"* ]] || [[ "$git_info" == *"+"* ]] || [[ "$git_info" == *"%"* ]]; then
+    color="\e[38;2;238;212;159m"  # yellow - dirty
+  else
+    color="\e[38;2;166;218;149m"  # green - clean
+  fi
+
+  echo -e "\e[38;2;110;115;141m on \e[0m${color} ${branch}\e[0m"
+}
+
+__prompt_node() {
+  # Only show if package.json exists in current or parent dirs
+  local dir="$PWD"
+  local found=0
+  while [ "$dir" != "/" ]; do
+    if [ -f "$dir/package.json" ]; then
+      found=1
+      break
+    fi
+    dir="$(dirname "$dir")"
+  done
+  [ "$found" -eq 0 ] && return
+
+  local node_ver
+  node_ver="$(node -v 2>/dev/null)"
+  [ -z "$node_ver" ] && return
+  echo -e "\e[38;2;110;115;141m via \e[38;2;198;160;246m ${node_ver}\e[0m"
+}
+
+__prompt_kube() {
+  # Only show if kubectl is available and KUBECONFIG is set
+  command -v kubectl &>/dev/null || return
+  [ -z "$KUBECONFIG" ] && return
+
+  local ctx
+  ctx="$(kubectl config current-context 2>/dev/null)"
+  [ -z "$ctx" ] && return
+
+  local ns
+  ns="$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)"
+  [ -n "$ns" ] && ctx="${ctx}/${ns}"
+
+  echo -e "\e[38;2;110;115;141m on \e[38;2;245;169;127m ${ctx}\e[0m"
+}
+
+__prompt_venv() {
+  [ -z "$VIRTUAL_ENV" ] && return
+  local name
+  name="$(basename "$VIRTUAL_ENV")"
+  echo -e "\e[38;2;110;115;141m via \e[38;2;166;218;149m ${name}\e[0m"
+}
+
+# Shorten path: ~/projects/foo/bar/baz -> ~/p/f/b/baz
+__short_path() {
+  local p="${PWD/#$HOME/~}"
+  local parts=()
+  local IFS='/'
+
+  read -ra parts <<< "$p"
+
+  local len=${#parts[@]}
+  if [ "$len" -le 3 ]; then
+    echo "$p"
+    return
+  fi
+
+  local result=""
+  for ((i = 0; i < len - 1; i++)); do
+    local part="${parts[$i]}"
+    if [ "$i" -eq 0 ]; then
+      if [ "$part" = "~" ]; then
+        result="~"
+      else
+        result="${part:0:1}"
+      fi
+    else
+      result="${result}/${part:0:1}"
+    fi
+  done
+  result="${result}/${parts[$len-1]}"
+  echo "$result"
+}
+
+# ── Build prompt ────────────────────────────────────────────────────
+
+__build_prompt() {
+  local exit_code=$?
+
+  local dir
+  dir="$(__short_path)"
+
+  # Line 1: directory + git + node + kube
+  PS1="\n"
+  PS1+="${_c_bold}${_c_blue}${dir}${_c_reset}"
+  PS1+="\$(__prompt_git)"
+  PS1+="\$(__prompt_node)"
+  PS1+="\$(__prompt_venv)"
+  PS1+="\$(__prompt_kube)"
+
+  # Line 2: prompt character (red if last command failed)
+  PS1+="\n"
+  if [ $exit_code -ne 0 ]; then
+    PS1+="${_c_red}${_c_bold}${exit_code} ${_c_reset}"
+  fi
+  PS1+="${_c_white}${_c_bold}❯${_c_reset} "
+}
+
+PROMPT_COMMAND="__build_prompt"

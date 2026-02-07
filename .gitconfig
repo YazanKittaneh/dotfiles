@@ -55,8 +55,8 @@
 	process = git-lfs filter-process
 [user]
 	name = Yazan Kittaneh
-	email = ykittaneh@paychex.com
-	signingkey = C27B77713EC42D9B
+	email = hi@yazan.io
+	signingkey = 3E5F62810E0C0052
 [credential]
 	helper = store
 [commit]

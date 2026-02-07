@@ -10,8 +10,6 @@ fi
 if [ -e "${HOME}/.iterm2_shell_integration.bash" ]; then
   source "${HOME}/.iterm2_shell_integration.bash"
 fi
-<<<<<<< HEAD
-. "$HOME/.cargo/env"
 
 # Added by Antigravity
 export PATH="/Users/yazankittaneh/.antigravity/antigravity/bin:$PATH"

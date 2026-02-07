@@ -40,7 +40,8 @@ fi
 
 # Rust
 if [ -f "$HOME/.cargo/env" ]; then
-  fi
+  . "$HOME/.cargo/env"
+fi
 
 # Bun
 if [ -d "$HOME/.bun" ]; then
