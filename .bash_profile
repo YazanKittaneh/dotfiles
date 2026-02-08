@@ -13,3 +13,5 @@ fi
 
 # Added by Antigravity
 export PATH="/Users/yazankittaneh/.antigravity/antigravity/bin:$PATH"
+
+export GPG_TTY=$(tty)

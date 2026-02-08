@@ -1,3 +1,8 @@
+# Auto-start tmux for interactive shells
+if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [[ $- == *i* ]] && [ -z "$VSCODE_RESOLVING_ENVIRONMENT" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
+  tmux new-session -A -s main
+fi
+
 # Ghostty shell integration
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"

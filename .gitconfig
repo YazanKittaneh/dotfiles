@@ -56,10 +56,13 @@
 [user]
 	name = Yazan Kittaneh
 	email = hi@yazan.io
-	signingkey = 3E5F62810E0C0052
+	signingkey = B1CBEC7A3BF2BC63
 [credential]
 	helper = store
 [commit]
 	gpgsign = true
 [gpg]
 	program = /opt/homebrew/bin/gpg
+	pinentryMode = loopback
+[tag]
+	gpgSign = true

@@ -1,15 +1,6 @@
-if [[ $OSTYPE == 'darwin'* ]]; then
-  alias l="ls -cl -hp --color=always"
-else
-  alias l="ls -cl -hp --time-style=long-iso --group-directories-first --color=always"
-fi
-
 if [ -f "$HOME/.env" ]; then
     . "$HOME/.env"
 fi
-
-
-alias ll="l -a"
 
 alias c1="cd .."
 alias c2="cd ../../"
@@ -36,7 +27,22 @@ killport() {
 }
 alias kp='killport'
 
-alias tree='tree -I ".git|node_modules"'
+# eza (modern ls replacement)
+alias ls='eza --icons --group-directories-first'
+alias l='eza --icons --group-directories-first -l --no-user'
+alias ll='eza --icons --group-directories-first -la --no-user'
+alias lt='eza --icons --group-directories-first --tree --level=2'
+alias tree='eza --icons --group-directories-first --tree -I ".git|node_modules"'
+
+# yazi - cd into directory on quit with 'y'
+y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
 
 alias path='echo -e ${PATH//:/\\n}'
 

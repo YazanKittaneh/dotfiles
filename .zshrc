@@ -128,3 +128,5 @@ alias claude-mem='bun "/Users/ykittaneh/.claude/plugins/marketplaces/thedotmack/
 # opencode
 export PATH=/Users/ykittaneh/.opencode/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+export GPG_TTY=$(tty)
