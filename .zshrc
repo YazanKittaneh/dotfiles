@@ -109,7 +109,7 @@ fi
 
 alias cc='claude converse --dangerously-skip-permissions'
 alias ccy='claude converse --dangerously-skip-permissions'
-<<<<<<< HEAD
+alias clude='claude'
 alias vy='vt cy'
 
 # Claude Code - Bitbucket Integration (added 2025-12-09)
@@ -130,3 +130,6 @@ export PATH=/Users/ykittaneh/.opencode/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
 
 export GPG_TTY=$(tty)
+
+# OpenClaw Completion
+source "/Users/yazankittaneh/.openclaw/completions/openclaw.zsh"
