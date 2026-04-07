@@ -2,6 +2,15 @@
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000000
 
+# Reattach to the existing tmux session on interactive SSH logins.
+case "$-" in
+  *i*)
+    if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && command -v tmux >/dev/null 2>&1; then
+      tmux attach-session || exec tmux new-session
+    fi
+    ;;
+esac
+
 # Editor settings
 export EDITOR="emacs -nw"
 export LESSCHARSET="utf-8"
@@ -78,4 +87,5 @@ fi
 if [ -f "$HOME/.env" ]; then
   source "$HOME/.env"
 fi
+
 . "$HOME/.cargo/env"
