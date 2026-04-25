@@ -46,3 +46,45 @@ export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"
 alias claude="/Users/yazankittaneh/.claude/local/claude"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"
+. "$HOME/.cargo/env"
+
+# OpenCode CLI
+export PATH="/root/.opencode/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# OpenClaw Completion
+source "/root/.openclaw/completions/openclaw.bash"
+
+if [ -n "$TMUX" ] && [ -n "$OPENCODE_TERMIUS_LANDING" ]; then
+  _opencode_landing_prompt_count=0
+
+  (
+    sleep 2
+    if [ -z "${_opencode_landing_returned:-}" ]; then
+      tmux switch-client -t "${OPENCODE_RETURN_TARGET:-opencode:1}" 2>/dev/null || true
+    fi
+  ) >/dev/null 2>&1 &
+
+  _opencode_landing_return() {
+    local exit_status="$?"
+
+    if [ -n "${_opencode_landing_returned:-}" ]; then
+      return "$exit_status"
+    fi
+
+    _opencode_landing_prompt_count=$((_opencode_landing_prompt_count + 1))
+
+    if [ "${_termius_integration_installed:-}" = "yes" ] || [ "$_opencode_landing_prompt_count" -ge 2 ]; then
+      _opencode_landing_returned=1
+      tmux switch-client -t "${OPENCODE_RETURN_TARGET:-opencode:1}" 2>/dev/null || true
+    fi
+
+    return "$exit_status"
+  }
+
+  if [[ -n "$PROMPT_COMMAND" ]]; then
+    PROMPT_COMMAND="_opencode_landing_return; $PROMPT_COMMAND"
+  else
+    PROMPT_COMMAND="_opencode_landing_return"
+  fi
+fi

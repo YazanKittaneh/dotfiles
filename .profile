@@ -26,8 +26,8 @@ if [ -d "/opt/homebrew" ]; then
 fi
 
 if [ -f "$HOME/.cargo/env" ]; then
-  source "$HOME/.cargo/env"
-fi
+  . "$HOME/.cargo/env"
+  fi
 
 if [ -f .env ]; then
   source .env
@@ -35,3 +35,7 @@ fi
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"
+. "$HOME/.cargo/env"
+
+# OpenCode CLI
+export PATH="/root/.opencode/bin:$PATH"

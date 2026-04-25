@@ -1,3 +1,9 @@
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
 if [[ $OSTYPE == 'darwin'* ]]; then
   alias l="ls -cl -hp --color=always"
 else
@@ -91,6 +97,45 @@ alias kns='f(){ k config set-context --current --namespace="$@"; unset -f f; }; 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/yazankittaneh/.cache/lm-studio/bin"
 # End of LM Studio CLI section
+
+
+# OpenCode CLI
+export PATH="/root/.opencode/bin:$PATH"
+
+# OpenClaw Completion
+source "/root/.openclaw/completions/openclaw.zsh"
+
+
+if [[ -n "$TMUX" && -n "$OPENCODE_TERMIUS_LANDING" ]]; then
+  typeset -g _opencode_landing_prompt_count=0
+
+  {
+    sleep 2
+    if [[ -z "${_opencode_landing_returned:-}" ]]; then
+      tmux switch-client -t "${OPENCODE_RETURN_TARGET:-opencode:1}" 2>/dev/null || true
+    fi
+  } >/dev/null 2>&1 &
+
+  _opencode_landing_return() {
+    local exit_status=$?
+
+    if [[ -n "${_opencode_landing_returned:-}" ]]; then
+      return $exit_status
+    fi
+
+    _opencode_landing_prompt_count=$((_opencode_landing_prompt_count + 1))
+
+    if [[ "${_termius_integration_installed:-}" == "yes" || "$_opencode_landing_prompt_count" -ge 2 ]]; then
+      typeset -g _opencode_landing_returned=1
+      tmux switch-client -t "${OPENCODE_RETURN_TARGET:-opencode:1}" 2>/dev/null || true
+    fi
+
+    return $exit_status
+  }
+
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd _opencode_landing_return
+fi
 
 
 
