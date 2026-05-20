@@ -40,7 +40,12 @@ alias tree='tree -I ".git|node_modules"'
 
 alias path='echo -e ${PATH//:/\\n}'
 
-alias python='/opt/homebrew/bin/python3'
+# Python - use homebrew on macOS, system on Linux
+if [[ $OSTYPE == 'darwin'* ]]; then
+  alias python='/opt/homebrew/bin/python3'
+else
+  alias python='/usr/bin/python3'
+fi
 
 alias mini='ssh yazankittaneh@99.31.77.12'
 alias air='export OPENAI_API_KEY=$OPENAI_API_KEY_ROUTE'

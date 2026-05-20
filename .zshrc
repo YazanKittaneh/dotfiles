@@ -50,7 +50,12 @@ alias kp='killport'
 # Common aliases
 alias tree='tree -I ".git|node_modules"'
 alias path='echo -e ${PATH//:/\\n}'
-alias python='/opt/homebrew/bin/python3'
+# Python - use homebrew on macOS, system on Linux
+if [[ $OSTYPE == 'darwin'* ]]; then
+  alias python='/opt/homebrew/bin/python3'
+else
+  alias python='/usr/bin/python3'
+fi
 
 # SSH shortcuts
 alias mini='ssh yazankittaneh@99.31.77.12'
@@ -109,7 +114,6 @@ fi
 
 alias cc='claude converse --dangerously-skip-permissions'
 alias ccy='claude converse --dangerously-skip-permissions'
-<<<<<<< HEAD
 alias vy='vt cy'
 
 # Claude Code - Bitbucket Integration (added 2025-12-09)
@@ -123,8 +127,8 @@ export BITBUCKET_WORKSPACE="surepayroll"
 # GPG configuration
 export GPG_TTY=$(tty)
 
-alias claude-mem='bun "/Users/ykittaneh/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+alias claude-mem='bun "$HOME/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
 
 # opencode
-export PATH=/Users/ykittaneh/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"

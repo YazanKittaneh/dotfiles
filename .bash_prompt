@@ -23,6 +23,10 @@ if [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
   source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
 elif [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh ]; then
   source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+elif [ -f /home/linuxbrew/.linuxbrew/etc/bash_completion.d/git-prompt.sh ]; then
+  source /home/linuxbrew/.linuxbrew/etc/bash_completion.d/git-prompt.sh
+elif [ -f /usr/share/git/completion/git-prompt.sh ]; then
+  source /usr/share/git/completion/git-prompt.sh
 fi
 
 # Enable git prompt features

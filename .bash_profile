@@ -12,4 +12,5 @@ if [ -e "${HOME}/.iterm2_shell_integration.bash" ]; then
 fi
 
 # Added by Antigravity
-export PATH="/Users/yazankittaneh/.antigravity/antigravity/bin:$PATH"
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+. "$HOME/.cargo/env"

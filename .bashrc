@@ -47,10 +47,10 @@ export NVM_DIR="$HOME/.nvm"
 . "$HOME/.cargo/env"
 
 # opencode
-export PATH=/Users/yazankittaneh/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/Users/yazankittaneh/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;

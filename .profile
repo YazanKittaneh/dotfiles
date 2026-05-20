@@ -5,8 +5,9 @@ export HISTFILESIZE=1000000000
 # Reattach to the existing tmux session on interactive SSH logins.
 case "$-" in
   *i*)
-    if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && command -v tmux >/dev/null 2>&1; then
-      tmux attach-session || exec tmux new-session
+    if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && [ -t 0 ] && [ -t 1 ] && command -v tmux >/dev/null 2>&1; then
+      ssh_tmux_session="ssh-login"
+      exec tmux attach-session -t "$ssh_tmux_session" || exec tmux new-session -s "$ssh_tmux_session"
     fi
     ;;
 esac
