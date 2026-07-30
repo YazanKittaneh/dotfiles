@@ -36,6 +36,19 @@ Keys are **not** stored on disk. Store rotated keys in a 1Password item
 (`op://Private/cli-keys/<field>`), then in a shell run `load_secrets` to export them.
 See `dot_config/dotfiles/load-secrets.sh` for the required fields and setup.
 
+## Agent context (Claude / Codex / Gemini / opencode / Cursor)
+
+One shared instruction file — `dot_config/agents/AGENTS.md` → `~/.config/agents/AGENTS.md`
+— holds the cross-agent model-orchestration policy. Every agent points at it:
+
+- Claude: `~/.claude/CLAUDE.md` keeps Claude-specific skill declarations and `@`-imports
+  the shared file. Claude's `agents/` and `commands/` are versioned under `dot_claude/`.
+- Codex / Gemini / opencode: `AGENTS.md` / `GEMINI.md` are **symlinks** to the shared file.
+
+Skills hub (`~/.agents/skills/`) is managed by the skills package manager, not copied here.
+Only the lockfile is versioned (`dot_agents/dot_skill-lock.json` → `~/.agents/.skill-lock.json`).
+On a new machine, reinstall skills from the lockfile after `chezmoi apply`.
+
 ## Common commands
 
 ```sh

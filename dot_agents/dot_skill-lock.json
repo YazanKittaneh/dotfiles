@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "skills": {
+    "linear-cli": {
+      "source": "schpet/linear-cli",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/schpet/linear-cli.git",
+      "skillPath": "skills/linear-cli/SKILL.md",
+      "skillFolderHash": "641eccd48b83f52e17c7fda3202d6b5ac5e31a05",
+      "installedAt": "2026-02-04T19:43:41.560Z",
+      "updatedAt": "2026-02-04T19:43:41.560Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "installedAt": "2026-02-04T19:43:45.268Z",
+      "updatedAt": "2026-02-04T19:43:45.268Z"
+    },
+    "job-application-optimizer": {
+      "source": "erichowens/some_claude_skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/erichowens/some_claude_skills.git",
+      "skillPath": ".claude/skills/job-application-optimizer/SKILL.md",
+      "skillFolderHash": "7345842327f10100c18734decc8ad9ec7615f68e",
+      "installedAt": "2026-02-12T05:21:24.404Z",
+      "updatedAt": "2026-02-12T05:21:24.404Z"
+    },
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "skillFolderHash": "d28aa4ed67fe5a3f1336f0fcccb1e548c67dc864",
+      "installedAt": "2026-02-16T05:39:45.040Z",
+      "updatedAt": "2026-02-16T05:39:45.040Z"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/obra/superpowers.git",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "skillFolderHash": "cf6f5c8813cf0445276129a5f2b443927b50f645",
+      "installedAt": "2026-02-16T05:51:56.499Z",
+      "updatedAt": "2026-02-16T05:51:56.499Z"
+    },
+    "wrangler": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cloudflare/skills.git",
+      "skillPath": "skills/wrangler/SKILL.md",
+      "skillFolderHash": "14e1631a53c066784caa8bbdd70d94d95c40101a",
+      "installedAt": "2026-03-14T04:57:28.634Z",
+      "updatedAt": "2026-03-14T04:57:28.634Z"
+    },
+    "github-actions-templates": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/cicd-automation/skills/github-actions-templates/SKILL.md",
+      "skillFolderHash": "727876c5924eb2e3397f70d64ae7363f2d5b7f33",
+      "installedAt": "2026-03-14T04:57:29.613Z",
+      "updatedAt": "2026-03-14T04:57:29.613Z"
+    },
+    "code-review-excellence": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/developer-essentials/skills/code-review-excellence/SKILL.md",
+      "skillFolderHash": "01df909b77da6e637490582b2899447eed1786bd",
+      "installedAt": "2026-03-17T03:36:45.080Z",
+      "updatedAt": "2026-03-17T03:36:45.080Z"
+    },
+    "e2e-testing-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/wshobson/agents.git",
+      "skillPath": "plugins/developer-essentials/skills/e2e-testing-patterns/SKILL.md",
+      "skillFolderHash": "364920ae1754341eeec99c913383ec437ea264ea",
+      "installedAt": "2026-03-17T03:36:55.180Z",
+      "updatedAt": "2026-03-17T03:36:55.180Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "18a9a6d17d5958d4ab10405883b80960644dbd5b",
+      "installedAt": "2026-03-17T03:37:04.544Z",
+      "updatedAt": "2026-03-17T03:37:04.544Z"
+    },
+    "google-recaptcha": {
+      "source": "membranedev/application-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/membranedev/application-skills.git",
+      "skillPath": "skills/google-recaptcha/SKILL.md",
+      "skillFolderHash": "e8585940d61792619dc34f3bbe6d907712dab1cd",
+      "installedAt": "2026-04-07T20:26:20.541Z",
+      "updatedAt": "2026-04-07T20:26:20.541Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "claude-code",
+    "opencode",
+    "codex",
+    "openclaw",
+    "antigravity",
+    "kimi-cli"
+  ]
+}
