@@ -1,6 +1,9 @@
 # Files/paths chezmoi must NEVER manage or apply into $HOME.
 # (Secrets, auth, machine-local state — these live only on each machine.)
 
+# Repo docs / meta (not targets)
+README.md
+
 # Machine-local shell override (created per-machine from local.sh.example)
 .config/dotfiles/local.sh
 
