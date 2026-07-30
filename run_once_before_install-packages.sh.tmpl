@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Runs once per machine (chezmoi re-runs it only if this file's contents change).
+# Installs a baseline set of packages using whatever package manager the host has.
+set -eu
+
+pkgs_common="git tmux zsh curl"
+
+install_brew() {
+  command -v brew >/dev/null 2>&1 || {
+    echo "Homebrew not found; install from https://brew.sh then re-run 'chezmoi apply'"
+    return 0
+  }
+  # Prefer a Brewfile if present in the source dir.
+  brew install chezmoi git tmux zsh eza 2>/dev/null || true
+}
+
+install_apt() {
+  sudo apt-get update -y
+  sudo apt-get install -y $pkgs_common
+}
+
+install_pacman() {
+  sudo pacman -Sy --noconfirm $pkgs_common
+}
+
+install_dnf() {
+  sudo dnf install -y $pkgs_common
+}
+
+{{ if eq .chezmoi.os "darwin" -}}
+install_brew
+{{- else -}}
+if command -v apt-get >/dev/null 2>&1; then
+  install_apt
+elif command -v pacman >/dev/null 2>&1; then
+  install_pacman
+elif command -v dnf >/dev/null 2>&1; then
+  install_dnf
+else
+  echo "No supported package manager found (apt/pacman/dnf). Install manually: $pkgs_common"
+fi
+{{- end }}
+
+# tmux plugin manager (tpm)
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm" 2>/dev/null || true
+fi

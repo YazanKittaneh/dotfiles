@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+# Machine-local shell overrides. Copy this to ~/.config/dotfiles/local.sh on each
+# machine and customize. This file is NOT tracked/synced — put host-specific and
+# work-identity settings here so they never land in the shared dotfiles repo.
+#
+#   cp ~/.config/dotfiles/local.sh.example ~/.config/dotfiles/local.sh
+
+# --- Example: work identity (e.g. the Paychex box) -------------------------
+# export BITBUCKET_USERNAME="you@company.com"
+# export BITBUCKET_WORKSPACE="your-workspace"
+# BITBUCKET_APP_PASSWORD is a secret — store it in 1Password and pull via
+# load_secrets, not here.
+
+# --- Example: auto-load 1Password secrets on startup (only if op session up) --
+# export DOTFILES_AUTOLOAD_SECRETS=1
+
+# --- Example: host-specific PATH / tool overrides --------------------------
+# export PATH="$HOME/some/host/specific/bin:$PATH"

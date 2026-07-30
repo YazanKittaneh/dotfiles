@@ -1,0 +1,72 @@
+# Secrets: 1Password-backed loader (defines `load_secrets`; nothing secret on disk)
+if [ -f "$HOME/.config/dotfiles/load-secrets.sh" ]; then
+    . "$HOME/.config/dotfiles/load-secrets.sh"
+fi
+
+alias c1="cd .."
+alias c2="cd ../../"
+alias c3="cd ../../../"
+alias c4="cd ../../../../"
+alias c5="cd ../../../../../"
+
+if [[ $OSTYPE != 'darwin'* ]]; then
+  alias open="xdg-open"
+fi
+start() { nohup $1 &> /dev/null & disown; }
+
+killport() {
+  if [ -z "$1" ]; then
+    echo "Usage: killport <port>"
+    return 1
+  fi
+  local pids=$(lsof -ti:$1)
+  if [ -z "$pids" ]; then
+    echo "No process found on port $1"
+    return 1
+  fi
+  echo "$pids" | xargs kill -9 && echo "Killed process(es) on port $1: $pids"
+}
+alias kp='killport'
+
+# eza (modern ls replacement)
+alias ls='eza --icons --group-directories-first'
+alias l='eza --icons --group-directories-first -l --no-user'
+alias ll='eza --icons --group-directories-first -la --no-user'
+alias lt='eza --icons --group-directories-first --tree --level=2'
+alias tree='eza --icons --group-directories-first --tree -I ".git|node_modules"'
+
+# yazi - cd into directory on quit with 'y'
+y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
+
+alias path='echo -e ${PATH//:/\\n}'
+
+{{ if eq .chezmoi.os "darwin" -}}
+alias python='/opt/homebrew/bin/python3'
+{{- else -}}
+alias python='python3'
+{{- end }}
+
+alias mini='ssh yazankittaneh@99.31.77.12'
+alias air='export OPENAI_API_KEY=$OPENAI_API_KEY_ROUTE'
+alias aime='export OPENAI_API_KEY=$OPENAI_API_KEY_PERSONAL'
+alias openrouter='export OPENROUTER_API_KEY=$OPENROUTER_API_KEY'
+alias claudekey='export ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY'
+alias sweet='export ANTHROPIC_API_KEY=$SWEET_OPENAI_API_KEY'
+alias addy='pipx run aider-chat --sonnet'
+alias o='open .'
+alias c='codium .'
+alias cu='cursor .'
+alias cy='claude --dangerously-skip-permissions'
+alias ks='echo -e "context: $(k config current-context)\nnamespace: $(k config view --minify --output jsonpath={..namespace})"'
+alias kc='f (){ export KUBECONFIG=~/.kube/"$@".yaml; unset -f f; }; f'
+alias kns='f(){ k config set-context --current --namespace="$@"; unset -f f; }; f'
+alias ccy='claude converse --dangerously-skip-permissions'
+alias vy='vt cy'
+alias gs='git status'

@@ -1,0 +1,40 @@
+# Files/paths chezmoi must NEVER manage or apply into $HOME.
+# (Secrets, auth, machine-local state — these live only on each machine.)
+
+# Machine-local shell override (created per-machine from local.sh.example)
+.config/dotfiles/local.sh
+
+# Secrets / auth — never synced
+.config/dotfiles/secrets.env
+.zshenv
+.env
+.env.local
+
+# Agent auth / credentials / state (context is shared; these are not)
+.claude/.credentials.json
+.claude/history.jsonl
+.claude/stats-cache.json
+.claude/policy-limits.json
+.claude/remote-settings.json
+.claude/telegram-mcp-sessions.json
+.claude/sessions/**
+.claude/shell-snapshots/**
+.claude/daemon/**
+.claude/debug/**
+.claude/file-history/**
+.codex/auth.json
+.codex/history.jsonl
+.codex/installation_id
+.codex/*.sqlite
+.codex/sessions/**
+.codex/archived_sessions/**
+.codex/shell_snapshots/**
+.config/opencode/antigravity-accounts.json
+.cursor/mcp.json
+.cursor/cli-config.json
+.cursor/chats/**
+.cursor/snapshots/**
+
+# Never sync installed caches / deps
+**/node_modules/**
+**/.venv/**
