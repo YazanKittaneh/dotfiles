@@ -112,11 +112,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 
-# Secrets: 1Password-backed loader (defines `load_secrets`; nothing secret on disk)
-if [ -f "$HOME/.config/dotfiles/load-secrets.sh" ]; then
-  source "$HOME/.config/dotfiles/load-secrets.sh"
-fi
-
 alias cc='claude converse --dangerously-skip-permissions'
 alias ccy='claude converse --dangerously-skip-permissions'
 alias clude='claude'
@@ -144,5 +139,9 @@ bindkey '^@' complete-word
 [ -f "$HOME/dev/active/dev-nav/dev-shell.sh" ] && source "$HOME/dev/active/dev-nav/dev-shell.sh"
 # <<< dev-nav <<<
 
-# Machine-local overrides (not tracked; work identity, host-specific tweaks)
+# Machine-local overrides (not tracked; work identity, service-account token, host tweaks)
 [ -f "$HOME/.config/dotfiles/local.sh" ] && source "$HOME/.config/dotfiles/local.sh"
+
+# Secrets loader — MUST come after local.sh (which sets OP_SERVICE_ACCOUNT_TOKEN).
+# Defines `load_secrets`; auto-loads unattended when the service-account token is set.
+[ -f "$HOME/.config/dotfiles/load-secrets.sh" ] && source "$HOME/.config/dotfiles/load-secrets.sh"

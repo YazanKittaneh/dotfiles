@@ -73,5 +73,8 @@ esac
 [ -f "$HOME/dev/active/dev-nav/dev-shell.sh" ] && source "$HOME/dev/active/dev-nav/dev-shell.sh"
 # <<< dev-nav <<<
 
-# Machine-local overrides (not tracked)
+# Machine-local overrides (not tracked; sets OP_SERVICE_ACCOUNT_TOKEN, work identity)
 [ -f "$HOME/.config/dotfiles/local.sh" ] && source "$HOME/.config/dotfiles/local.sh"
+
+# Secrets loader — MUST come after local.sh. Auto-loads unattended when the token is set.
+[ -f "$HOME/.config/dotfiles/load-secrets.sh" ] && source "$HOME/.config/dotfiles/load-secrets.sh"
