@@ -1,0 +1,4 @@
+interface:
+  display_name: "Control GLKVM Windows"
+  short_description: "Operate GLKVM Windows and supervise coding agents"
+  default_prompt: "Use $control-glkvm-windows to connect to the GLKVM Windows computer, control it safely, and supervise its terminal coding agent."

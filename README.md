@@ -45,9 +45,11 @@ One shared instruction file — `dot_config/agents/AGENTS.md` → `~/.config/age
   the shared file. Claude's `agents/` and `commands/` are versioned under `dot_claude/`.
 - Codex / Gemini / opencode: `AGENTS.md` / `GEMINI.md` are **symlinks** to the shared file.
 
-Skills hub (`~/.agents/skills/`) is managed by the skills package manager, not copied here.
-Only the lockfile is versioned (`dot_agents/dot_skill-lock.json` → `~/.agents/.skill-lock.json`).
-On a new machine, reinstall skills from the lockfile after `chezmoi apply`.
+Third-party skills in `~/.agents/skills/` are managed by the skills package manager. Its
+lockfile is versioned (`dot_agents/dot_skill-lock.json` → `~/.agents/.skill-lock.json`),
+and those skills should be reinstalled from the lockfile on a new machine after
+`chezmoi apply`. Curated personal skills are versioned under `dot_agents/skills/` and
+installed directly by chezmoi.
 
 ## Common commands
 
