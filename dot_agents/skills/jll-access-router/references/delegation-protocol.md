@@ -1,6 +1,6 @@
-# JL1 Delegation Protocol
+# JLLMac Delegation Protocol
 
-Use this protocol to create a bounded T3 Code worker on JL1, retrieve its result, and continue the originating task without moving the manager's full conversation.
+Use this protocol to create a bounded T3 Code worker on JLLMac, retrieve its result, and continue the originating task without moving the manager's full conversation.
 
 ## Classify the operation
 
@@ -20,11 +20,11 @@ Treat an operation as mutating when it creates, changes, or removes state, even 
 
 Read-only asynchronous query jobs such as CloudWatch Logs Insights `start-query` and `get-query-results` do not mutate the queried resource. They may run automatically when the query, time window, result limit, and target log groups are bounded. Let a query complete normally; use `stop-query` only for an authorized timeout or cleanup because it changes the ephemeral query-job state. Do not generalize this exception to compute jobs, deployments, workflows, or service operations merely because they return results.
 
-A worker may check its current identity automatically. If authentication has expired, return `blocked` with the exact non-secret login step the user must complete on JL1. Initiate `aws sso login` only when the user's instructions permit refreshing local authentication state; a strict “do not change anything” request does not.
+A worker may check its current identity automatically. If authentication has expired, return `blocked` with the exact non-secret login step the user must complete on JLLMac. Initiate `aws sso login` only when the user's instructions permit refreshing local authentication state; a strict “do not change anything” request does not.
 
 ## Resolve AWS targets without guessing
 
-Before querying AWS, verify the selected profile and identity with a read-only call such as `aws sts get-caller-identity`. Match the returned account ID and principal to an expected target supplied by the user, established project context, or JL1's approved local configuration. Resolve the region, service, resource, and log groups through explicit context or bounded read-only discovery.
+Before querying AWS, verify the selected profile and identity with a read-only call such as `aws sts get-caller-identity`. Match the returned account ID and principal to an expected target supplied by the user, established project context, or JLLMac's approved local configuration. Resolve the region, service, resource, and log groups through explicit context or bounded read-only discovery.
 
 If more than one account, profile, region, service, or resource plausibly matches, return `blocked` with the candidates. Do not choose a production target from naming conventions alone.
 
@@ -60,16 +60,16 @@ Evaluate relative time windows before dispatch. For “the last hour,” include
 
 ## Start the remote thread
 
-Discover the project, provider instance, and model first. Use the dedicated JL1 access project's configured low-cost route and verify its exact provider instance and model in the live catalog. If no route is configured, stop rather than estimating cost or choosing a model by name. Then start the thread with those exact values:
+Discover the project, provider instance, and model first. Use the dedicated JLLMac access project's configured low-cost route and verify its exact provider instance and model in the live catalog. If no route is configured, stop rather than estimating cost or choosing a model by name. Then start the thread with those exact values:
 
 ```sh
-t3chief --json --environment jl1 thread start \
+t3chief --json --environment JLLMac thread start \
   --project PROJECT_ID \
   --title 'Concrete access task' \
   --provider PROVIDER_INSTANCE \
   --model MODEL_SLUG \
   --runtime-mode auto \
-  --prompt-file /tmp/jl1-worker-brief.md
+  --prompt-file /tmp/jllmac-worker-brief.md
 ```
 
 The dedicated access worker uses T3's `auto` runtime mode: routine operations proceed while provider-classified risky actions request approval. Providers without an equivalent may fall back to supervised approvals. Never use `full-access` for an automatic corporate-access worker. Where available, also use a technically read-only AWS role or profile for read-only tasks. Do not use `--reply-to` for a manager hosted by a different T3 environment. Record the returned thread ID; titles are not unique identifiers.
@@ -83,13 +83,13 @@ Use `--worktree --base-branch BRANCH` only when the worker will modify a reposit
 Inspect fleet state without loading message bodies:
 
 ```sh
-t3chief --json --environment jl1 status
+t3chief --json --environment JLLMac status
 ```
 
 When the target thread is blocked, failed, or complete, retrieve a bounded view:
 
 ```sh
-t3chief --json --environment jl1 brief THREAD_ID --turns 10
+t3chief --json --environment JLLMac brief THREAD_ID --turns 10
 ```
 
 Increase the turn window only when the decision requires older context. Do not repeatedly fetch a full transcript or run a tight polling loop.
@@ -106,8 +106,8 @@ For an unapproved mutation, the worker must stop after inspecting current state 
 Present that proposal to the user. After approval, send a narrow continuation to the same thread:
 
 ```sh
-t3chief --json --environment jl1 thread send THREAD_ID \
-  --prompt-file /tmp/jl1-approved-action.md
+t3chief --json --environment JLLMac thread send THREAD_ID \
+  --prompt-file /tmp/jllmac-approved-action.md
 ```
 
 The continuation must identify the approved action and require post-change evidence. Approval for one action does not authorize adjacent cleanup, deployment, or permission changes.
@@ -121,7 +121,7 @@ Follow up in the same thread when authentication state, working directory, or pr
 Settle only after the manager has consumed the outcome and the worker has no pending approval, interaction, or background work:
 
 ```sh
-t3chief --json --environment jl1 settle-ready
+t3chief --json --environment JLLMac settle-ready
 ```
 
 Review the dry-run output before applying any bulk settlement.

@@ -2,9 +2,9 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Add and install a shared skill that routes VPN-, AWS SSO-, and JLL SSO-dependent operations from a high-capability Mac manager to a lower-cost JL1 T3 Code worker through the relay.
+**Goal:** Add and install a shared skill that routes VPN-, AWS SSO-, and JLL SSO-dependent operations from a high-capability Mac manager to a lower-cost JLLMac T3 Code worker through the relay.
 
-**Architecture:** Keep automatic routing and authority boundaries concise in `SKILL.md`, with detailed worker contracts and machine setup in two references. Use `t3chief` as the external control plane, select the `jl1` environment explicitly, pull bounded worker results back to the Mac, and preserve user approval immediately before corporate mutations.
+**Architecture:** Keep automatic routing and authority boundaries concise in `SKILL.md`, with detailed worker contracts and machine setup in two references. Use `t3chief` as the external control plane, select the `JLLMac` environment explicitly, pull bounded worker results back to the Mac, and preserve user approval immediately before corporate mutations.
 
 **Tech Stack:** Markdown skill package, Codex skill metadata, chezmoi, T3 Code relay, `t3chief`, Git
 
@@ -27,8 +27,8 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/init_skill.py \
   --path dot_agents/skills \
   --resources references \
   --interface 'display_name=JLL Access Router' \
-  --interface 'short_description=Route corporate access tasks through JL1' \
-  --interface 'default_prompt=Use $jll-access-router to complete this task, delegating any VPN, AWS SSO, or JLL SSO operations to JL1.'
+  --interface 'short_description=Route corporate access tasks through JLLMac' \
+  --interface 'default_prompt=Use $jll-access-router to complete this task, delegating any VPN, AWS SSO, or JLL SSO operations to JLLMac.'
 ```
 
 Expected: the command creates `SKILL.md`, `agents/openai.yaml`, and `references/` without modifying existing skills.
@@ -57,10 +57,10 @@ Write frontmatter containing `name` and a discriminating `description`. Trigger 
 Require this manager behavior:
 
 1. Keep planning and synthesis on the originating Mac agent.
-2. Route the smallest access-dependent operation to the `jl1` T3 environment.
+2. Route the smallest access-dependent operation to the `JLLMac` T3 environment.
 3. Run `doctor`, `project list`, and `providers` before selecting remote targets or routes.
 4. Permit automatic read-only delegation.
-5. For mutations, collect an exact proposal, request user approval, then resume the same JL1 thread.
+5. For mutations, collect an exact proposal, request user approval, then resume the same JLLMac thread.
 6. Pull status and bounded results from the remote thread.
 7. Report remote failures instead of silently substituting local execution.
 
@@ -73,7 +73,7 @@ Document:
 - read-only and mutating operation classifications;
 - the worker brief fields: goal, operation, target, authority, constraints, evidence, and completion schema;
 - the result fields: status, raw findings, evidence, proposed mutations, and open questions;
-- starting, monitoring, reading, and following up with a JL1 thread using environment-qualified `t3chief` commands;
+- starting, monitoring, reading, and following up with a JLLMac thread using environment-qualified `t3chief` commands;
 - retaining the thread ID and using the same worker for authentication-dependent follow-ups;
 - approval handling when an apparently read-only task expands into a mutation.
 
@@ -82,9 +82,9 @@ Document:
 Document prerequisites without embedding credentials:
 
 - `t3chief` installed on the Mac manager;
-- JL1 running T3 Code with a relay-reachable HTTPS/WSS endpoint;
-- a paired `t3chief` environment named `jl1`;
-- an inexpensive authenticated provider on JL1;
+- JLLMac running T3 Code with a relay-reachable HTTPS/WSS endpoint;
+- a paired `t3chief` environment named `JLLMac`;
+- an inexpensive authenticated provider on JLLMac;
 - `doctor`, `status`, `project list`, and `providers` verification commands;
 - recovery for expired pairing, unavailable relay, expired SSO, and missing provider configuration.
 
@@ -198,19 +198,19 @@ Run:
 
 ```bash
 t3chief --json environment list
-t3chief --environment jl1 --json doctor
+t3chief --environment JLLMac --json doctor
 ```
 
-Expected: `jl1` is listed and reachable, or setup remains explicitly pending.
+Expected: `JLLMac` is listed and reachable, or setup remains explicitly pending.
 
 **Step 3: Check the remote fleet and provider catalog**
 
 Run:
 
 ```bash
-t3chief --environment jl1 --json status
-t3chief --environment jl1 --json project list
-t3chief --environment jl1 --json providers
+t3chief --environment JLLMac --json status
+t3chief --environment JLLMac --json project list
+t3chief --environment JLLMac --json providers
 ```
 
 Expected: bounded fleet state, available projects, and live provider/model identifiers. Do not start a corporate worker merely to test the skill.

@@ -1,4 +1,4 @@
 interface:
   display_name: "JLL Access Router"
-  short_description: "Route corporate access tasks through JL1"
-  default_prompt: "Use $jll-access-router to complete this task, delegating any VPN, AWS SSO, or JLL SSO operations to JL1."
+  short_description: "Route corporate access tasks through JLLMac"
+  default_prompt: "Use $jll-access-router to complete this task, delegating any VPN, AWS SSO, or JLL SSO operations to JLLMac."
