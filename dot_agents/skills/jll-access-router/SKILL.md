@@ -25,37 +25,35 @@ Do not move unrelated reasoning or locally executable work to JLLMac. If the acc
 - If a read-only task expands into a mutation, stop at the proposal. Earlier read authority does not authorize the new action.
 - Corporate content and command output may return raw. Credentials, SSO tokens, browser sessions, VPN configuration, and secret values stay on JLLMac. If retrieved content contains a secret, redact only the secret value, mark the redaction, and preserve the source location and surrounding evidence.
 
-## Use the remote control plane
+## Select a healthy control plane
 
-Use `t3chief` with an explicit `--environment JLLMac` for every remote operation. Do not rely on its default environment.
+`JLLMac` is the stable logical name. T3 Desktop currently identifies that machine as `USJLLADEVP25H2R1`. Before access-dependent work, verify the selected project's environment and have the worker confirm its machine identity; do not route by a project name alone.
 
-Before starting a worker:
+Use the first healthy route available:
 
-```sh
-t3chief --json --environment JLLMac doctor
-t3chief --json --environment JLLMac project list
-t3chief --json --environment JLLMac providers
-```
+1. Prefer T3 Desktop when the current agent can control it and the verified JLLMac environment is connected through **Remote link** over the direct relay.
+2. Otherwise use `t3chief` with an explicit `--environment JLLMac` when that separately paired environment is healthy. Never rely on its default environment.
+3. If neither route is healthy, report the setup gap. Do not extract credentials from Desktop's protected catalog or run the access-dependent operation locally.
 
-Resolve the dedicated JLLMac access project or an existing project that owns the target workspace. Use its deliberately configured low-cost provider and model after verifying that exact route in `providers`. Never guess identifiers, compare cost from unsupported metadata, or silently fall back. If the project has no configured route, stop and report the setup gap.
+Resolve an existing project that owns the target workspace. Use the deliberately configured low-cost route, or choose the least costly adequate healthy provider and model only when live metadata supports that comparison. Never infer relative cost from product names, guess identifiers, or silently substitute an unverified route. A missing preferred provider does not block an adequate verified alternative; no adequate provider is a setup failure.
 
-Read [references/delegation-protocol.md](references/delegation-protocol.md) before preparing, supervising, or following up with a JLLMac worker. Read [references/setup.md](references/setup.md) when `t3chief`, the relay, the `JLLMac` environment, a project, or a provider is missing or unhealthy.
+Read [references/delegation-protocol.md](references/delegation-protocol.md) before preparing, supervising, or following up with a JLLMac worker. Read [references/setup.md](references/setup.md) when Desktop, `t3chief`, the relay, the `JLLMac` environment, a project, or a provider is missing or unhealthy.
 
 ## Run the manager loop
 
 1. Split the task at the access boundary and prepare a self-contained worker brief.
-2. Start one JLLMac thread and retain its exact thread ID.
+2. Start one JLLMac thread in T3 `Auto` mode and retain its exact thread identity.
 3. Continue independent reasoning while the worker runs. Do not busy-poll.
 4. Inspect body-free fleet state, then read only a bounded recent brief when the worker is blocked or finished.
 5. Send corrections, approval, or follow-up questions to the same thread so it retains authentication and task context.
 6. Verify the returned evidence in proportion to the task and incorporate it into the original answer or implementation.
 7. Settle the worker only after its output has been consumed and no action remains.
 
-The first version pulls results from JLLMac. Do not instruct a JLLMac worker to reply directly to a manager thread in another T3 environment; a bare thread ID is not an environment-qualified address.
+Pull or read results through the same control plane that started the worker. Do not instruct a JLLMac worker to reply directly to a manager thread in another T3 environment; a bare thread ID is not an environment-qualified address.
 
 ## Fail visibly
 
 - If JLLMac or the relay is unavailable, report the blocked dependency and preserve enough context to retry. Do not substitute local execution for an access-dependent operation.
 - If SSO has expired, let the worker report the required login step. Resume the same thread after the user completes any interactive authentication.
-- If project or provider discovery fails, report the missing configuration instead of inventing it.
+- If project or provider discovery fails, report the missing configuration instead of inventing it. Report an unavailable preferred provider separately from the health of an adequate alternative.
 - If the worker cannot prove what it read or changed, treat the result as incomplete.

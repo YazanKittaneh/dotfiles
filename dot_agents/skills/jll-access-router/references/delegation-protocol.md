@@ -28,6 +28,8 @@ Before querying AWS, verify the selected profile and identity with a read-only c
 
 If more than one account, profile, region, service, or resource plausibly matches, return `blocked` with the candidates. Do not choose a production target from naming conventions alone.
 
+Verify the capability the task actually needs. `scutil --nc list` detects traditional macOS VPN services but may miss corporate network extensions, so its output alone neither proves nor disproves corporate connectivity. For AWS, pair identity verification with a bounded read against the requested service when needed. For an internal site, CLI, API, repository, or tool, use a read-only reachability or identity check against that target.
+
 ## Build the worker brief
 
 Pass a self-contained prompt by file or stdin. Do not paste the manager's full transcript. Include this information:
@@ -58,9 +60,33 @@ Tell the worker not to expose credentials, tokens, cookies, browser-session mate
 
 Evaluate relative time windows before dispatch. For “the last hour,” include the exact UTC start and end, the evaluation time, account ID, region, resource or log groups, query text, result limits, and required query/result IDs. Prefer aggregation first and request a bounded sample only when individual records are needed.
 
-## Start the remote thread
+## Choose the remote route
 
-Discover the project, provider instance, and model first. Use the dedicated JLLMac access project's configured low-cost route and verify its exact provider instance and model in the live catalog. If no route is configured, stop rather than estimating cost or choosing a model by name. Then start the thread with those exact values:
+Use `JLLMac` as the logical name. The currently verified physical environment is `USJLLADEVP25H2R1`; confirm that identity before each access-dependent task because machine labels and connections can change. Prefer the product-native Desktop route when it is available, and use the independently paired `t3chief` route for unattended or headless operation.
+
+### T3 Desktop Remote link
+
+In T3 Desktop, confirm that the physical JLLMac environment is connected through **Remote link**, not merely that a similarly named project exists. Select the project whose workspace owns the task and verify that the composer shows the expected physical environment before sending the brief.
+
+- Use **Current checkout** for read-only retrieval.
+- Use a new worktree only for an authorized repository change.
+- Inspect the live provider choices and use the deliberately configured low-cost route. Compare alternatives by cost only when live metadata supports it; do not infer relative cost from product names or hard-code a provider from a past test. If a preferred provider is unavailable, report why and use a verified adequate alternative when one exists.
+- Set runtime mode to **Auto**, never Full access, for automatically delegated corporate work.
+- Send the bounded brief, retain the resulting thread identity, monitor without repeatedly opening full message bodies, read the result, and follow up in the same thread when its context matters.
+
+Desktop keeps its connection credential in a protected catalog. Never inspect, decrypt, copy, or reuse that credential to configure another client.
+
+### Headless `t3chief`
+
+The `t3chief` environment is independent of Desktop. Before starting a headless worker, run:
+
+```sh
+t3chief --json --environment JLLMac doctor
+t3chief --json --environment JLLMac project list
+t3chief --json --environment JLLMac providers
+```
+
+Discover the project, provider instance, and model first. Use a deliberately configured low-cost route and verify its exact provider instance and model in the live catalog. If no adequate route is configured, stop rather than estimating cost or choosing a model by name. Then start the thread with those exact values:
 
 ```sh
 t3chief --json --environment JLLMac thread start \
@@ -80,7 +106,7 @@ Use `--worktree --base-branch BRANCH` only when the worker will modify a reposit
 
 ## Monitor without flooding context
 
-Inspect fleet state without loading message bodies:
+For Desktop, inspect the target thread's state in the sidebar and open its bounded result only after it is blocked, failed, or complete. For `t3chief`, inspect fleet state without loading message bodies:
 
 ```sh
 t3chief --json --environment JLLMac status
@@ -103,7 +129,7 @@ For an unapproved mutation, the worker must stop after inspecting current state 
 - expected effects and a verification command;
 - any meaningful rollback or recovery step.
 
-Present that proposal to the user. After approval, send a narrow continuation to the same thread:
+Present that proposal to the user. After approval, continue the same Desktop thread, or send a narrow `t3chief` continuation to the same headless thread:
 
 ```sh
 t3chief --json --environment JLLMac thread send THREAD_ID \
@@ -118,7 +144,7 @@ Check that the result addresses the requested goal and includes the required evi
 
 Follow up in the same thread when authentication state, working directory, or prior inspection matters. Start a new thread when the target or authority boundary changes materially.
 
-Settle only after the manager has consumed the outcome and the worker has no pending approval, interaction, or background work:
+Settle only after the manager has consumed the outcome and the worker has no pending approval, interaction, or background work. Settle the specific Desktop thread directly. For headless bulk settlement, preview the candidates:
 
 ```sh
 t3chief --json --environment JLLMac settle-ready
