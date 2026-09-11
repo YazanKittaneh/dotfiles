@@ -3,6 +3,7 @@
 
 # Repo docs / meta (not targets)
 README.md
+docs
 
 # Machine-local shell override (created per-machine from local.sh.example)
 .config/dotfiles/local.sh
